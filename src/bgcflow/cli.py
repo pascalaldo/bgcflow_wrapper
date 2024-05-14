@@ -26,6 +26,11 @@ def main():
 
 @main.command()
 @click.argument("destination")
+@click.option(
+    "--repo",
+    default="https://github.com/NBChub/bgcflow.git",
+    help="BGCFlow git repository to use",
+)
 @click.option("--branch", default="main", help="BGCFlow branch/release to use")
 def deploy(**kwargs):
     """
@@ -38,6 +43,11 @@ def deploy(**kwargs):
 
 @main.command()
 @click.argument("destination")
+@click.option(
+    "--repo",
+    default="https://github.com/NBChub/bgcflow.git",
+    help="BGCFlow git repository to use",
+)
 @click.option(
     "--branch",
     default="main",

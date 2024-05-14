@@ -34,6 +34,7 @@ class Dict2Class(object):
     print_references():
         Returns a formatted string of the `references` attribute of the object.
     """
+
     def __init__(self, my_dict):
         """
         Initializes the object with attributes from the dictionary.
@@ -82,6 +83,7 @@ def load_project_metadata(path_to_metadata):
         p = Dict2Class(p)
     return p
 
+
 def write_mkdocs_file(data_input, output_file, action):
     """
     Writes data to a file in either YAML or plain text format.
@@ -100,7 +102,9 @@ def write_mkdocs_file(data_input, output_file, action):
     None
     """
     if output_file.exists():
-        overwrite = input(f"WARNING: {output_file} already exists. Do you want to overwrite it? (y/n) ")
+        overwrite = input(
+            f"WARNING: {output_file} already exists. Do you want to overwrite it? (y/n) "
+        )
         if overwrite.lower() != "y":
             print("Skipping file write.")
         else:
@@ -114,16 +118,17 @@ def write_mkdocs_file(data_input, output_file, action):
         # continue with writing the file
         with open(output_file, "w", encoding="utf-8") as f:
             if action == "yaml":
-                  yaml.dump(data_input, f)
+                yaml.dump(data_input, f)
             elif action == "write":
                 f.write(data_input)
+
 
 def generate_mkdocs_report(
     bgcflow_dir: str,
     project_name: str,
     port: int = 8001,
     fileserver: str = "http://localhost:8002",
-    ipynb: bool = True
+    ipynb: bool = True,
 ) -> None:
     """
     Generates an MkDocs report for a BGCFlow project.
@@ -223,7 +228,9 @@ def generate_mkdocs_report(
     mkdocs_py = report_dir / "main.py"
     logging.info(f"Generating python macros at: {mkdocs_py}")
     j2_template = Template(macros_template)
-    write_mkdocs_file(j2_template.render({"file_server": fileserver}), mkdocs_py, "write")
+    write_mkdocs_file(
+        j2_template.render({"file_server": fileserver}), mkdocs_py, "write"
+    )
 
     # generate custom javascripts
     # script_dir = docs_dir / "scripts"

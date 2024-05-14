@@ -158,7 +158,7 @@ def deployer(**kwargs):
     None
     """
     dplyr(
-        "https://github.com/NBChub/bgcflow.git",
+        kwargs["repo"],
         branch=kwargs["branch"],
         name="bgcflow",
         dest_path=Path(kwargs["destination"]),
@@ -182,13 +182,13 @@ def cloner(**kwargs):
     destination_dir.mkdir(parents=True, exist_ok=True)
     try:
         Repo.clone_from(
-            "https://github.com/NBChub/bgcflow.git",
+            kwargs["repo"],
             Path(kwargs["destination"]),
             branch=kwargs["branch"],
         )
     except GitCommandError:
         print(
-            f"Oops, it seems {kwargs['destination']} already exists and is not an empty directory."
+            f"Oops, it seems {kwargs['destination']} already exists and is not an empty directory, or the repository could not be found."
         )
     return
 

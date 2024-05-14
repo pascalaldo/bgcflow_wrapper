@@ -34,7 +34,12 @@ class TestGenerateProject(unittest.TestCase):
         self.description = "Test project description"
 
         # Clone the bgcflow repository
-        cloner(destination=self.bgcflow_dir, branch="main")
+        cloner(
+            destination=self.bgcflow_dir,
+            branch="main",
+            repo="https://github.com/NBChub/bgcflow.git",
+            # repo="https://github.com/pascalaldo/bgcflow.git",
+        )
 
     def test_generate_project(self):
         generate_project(

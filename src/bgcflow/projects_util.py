@@ -23,7 +23,7 @@ def generate_global_config(bgcflow_dir, global_config):
         global_config (str or pathlib.PosixPath): The path to the global configuration file to be generated.
     """
     print(f"Generating config file from template at: {global_config}")
-    template_config = bgcflow_dir / ".examples/_config_example.yaml"
+    template_config = Path(bgcflow_dir / ".examples/_config_example.yaml")
     assert (
         template_config.is_file()
     ), "Cannot find template file. Are you using BGCFlow version >= 0.4.1?"
