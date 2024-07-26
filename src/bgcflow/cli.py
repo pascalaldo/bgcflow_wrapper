@@ -7,7 +7,7 @@ import click
 import yaml
 
 import bgcflow
-from bgcflow.bgcflow import cloner, deployer, get_all_rules, snakemake_wrapper
+from bgcflow.bgcflow import cloner, deployer, get_all_rules, get_all_workflows, snakemake_wrapper
 from bgcflow.metabase import upload_and_sync_to_metabase
 from bgcflow.mkdocs import generate_mkdocs_report
 from bgcflow.projects_util import copy_final_output, projects_util
@@ -74,13 +74,13 @@ def clone(**kwargs):
 @click.option(
     "--workflow",
     default="workflow/Snakefile",
-    help="Select which snakefile to run. Available subworkflows: {BGC | Database | Report | Metabase | lsagbc | ppanggolin}. (DEFAULT: workflow/Snakefile)",
+    help="Select which snakefile to run. List available subworkflows using `bgcflow workflows`. (DEFAULT: workflow/Snakefile)",
 )
 @click.option(
-    "--monitor-off",
+    "--monitor",
     default=False,
     is_flag=True,
-    help="Turn off Panoptes monitoring workflow. (DEFAULT: False)",
+    help="Turn on Panoptes monitoring workflow. (DEFAULT: False)",
 )
 @click.option(
     "--wms-monitor",
@@ -127,15 +127,29 @@ def run(**kwargs):
     default=".",
     help="Location of BGCFlow directory. (DEFAULT: Current working directory)",
 )
-@click.option("--describe", help="Get description of a given pipeline.")
-@click.option("--cite", help="Get citation of a given pipeline.")
-def pipelines(**kwargs):
+@click.option("--describe", help="Get description of a given rule.")
+@click.option("--cite", help="Get citation of a given rule.")
+def rules(**kwargs):
     """
-    Get description of available pipelines from BGCFlow.
+    Get description of available rules from BGCFlow.
 
     """
     get_all_rules(**kwargs)
 
+@main.command()
+@click.option(
+    "--bgcflow_dir",
+    default=".",
+    help="Location of BGCFlow directory. (DEFAULT: Current working directory)",
+)
+@click.option("--describe", help="Get description of a given workflow.")
+@click.option("--config", help="Get the config schema of a given workflow.")
+def workflows(**kwargs):
+    """
+    Get description of available workflows from BGCFlow.
+
+    """
+    get_all_workflows(**kwargs)
 
 @main.command()
 @click.option(
