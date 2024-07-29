@@ -132,6 +132,7 @@ def snakemake_wrapper(**kwargs):
             f"\nDEBUG: Using {kwargs['cores']} out of {multiprocessing.cpu_count()} available cores\n"
         )
     monitor = ""
+    click.echo(f"Monitor: {kwargs['monitor']} [{type[kwargs['monitor']]}]")
     if kwargs["monitor"]:
         monitor = f"--wms-monitor {kwargs['wms_monitor']}"
     snakemake_command = f"cd {kwargs['bgcflow_dir']} && snakemake --snakefile {snakefile} --use-conda --keep-going --rerun-incomplete --rerun-triggers mtime -c {kwargs['cores']} {dryrun} {touch} {until} {unlock} {profile} {monitor}"
